@@ -33,7 +33,7 @@
    有三个item，怎么可能不滑动了，再细细探究这个事件里面的处理，发现这个事件处理调用了个方法：
    
    
-   `
+   ```java
       protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {
            if (v instanceof ViewGroup) {
                final ViewGroup group = (ViewGroup) v;
@@ -56,7 +56,7 @@
 
            return checkV && v.canScrollHorizontally(-dx);
        }
-    `
+    ```
     
 2. 看到这里就清晰了，这里干的是什么事情呢，就是 `ViewPager` 递归的去问它所有的子 `View`，然后调用子 `View` 的 `canScrollHorizontally()` 方法
 3. 可算是柳暗花明了，最后就是要验证，是不是在这种设置了marquee的 `TextView` 上触摸并且左右滑动时，`TextView` 的 `canScrollHorizontally()`
